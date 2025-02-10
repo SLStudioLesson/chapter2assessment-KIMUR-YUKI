@@ -1,7 +1,6 @@
 package ui;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -37,15 +36,7 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
-                        System.out.println("Recipes:");
-                        System.out.println("-----------------------------");
-                        //recipes.txtからデータを読み込み
-                        BufferedReader reader = new BufferedReader(new FileReader(filePath))){
-                        String line;
-                        while((line = reader.readLine()) != null){
-                            System.out.println(line);
-                        }
-                    }
+                        displayRecipes();
                         break;
                     case "2":
                         // 設問2: 新規登録機能
@@ -74,7 +65,9 @@ public class RecipeUI {
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
     private void displayRecipes() {
-
+        System.out.println("Recipes:");
+        System.out.println("-----------------------------");
+        //readRecipes();
     }
 
     /**

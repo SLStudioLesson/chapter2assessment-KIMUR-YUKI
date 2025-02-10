@@ -17,19 +17,21 @@ public class RecipeFileHandler {
 
     
     //設問1: 一覧表示機能
-    //recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br>
-    //IOExceptionが発生したときは<i>Error reading file: 例外のメッセージ</i>とコンソールに表示します。
+    
+    
     
     //@return レシピデータ
     
     public ArrayList<String> readRecipes() {
+        //recipes.txtからレシピデータを読み込み、それをリスト形式で返します。
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while((line = reader.readLine()) != null){
                 System.out.println(line);
-                
+                return readRecipes();
             }
         } catch (IOException e) {
+            //IOExceptionが発生したときは<i>Error reading file: 例外のメッセージ</i>とコンソールに表示します。
             System.out.println("Error reading file:" + e.getMessage());
         }
         return null;
