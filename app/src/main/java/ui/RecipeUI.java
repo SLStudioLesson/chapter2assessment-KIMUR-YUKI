@@ -1,9 +1,9 @@
 package ui;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStreamReader;
 
 import data.RecipeFileHandler;
 
@@ -37,6 +37,15 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        System.out.println("Recipes:");
+                        System.out.println("-----------------------------");
+                        //recipes.txtからデータを読み込み
+                        BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+                        String line;
+                        while((line = reader.readLine()) != null){
+                            System.out.println(line);
+                        }
+                    }
                         break;
                     case "2":
                         // 設問2: 新規登録機能
@@ -50,10 +59,13 @@ public class RecipeUI {
                     default:
                         System.out.println("Invalid choice. Please select again.");
                         break;
+                        
                 }
+                
             } catch (IOException e) {
                 System.out.println("Error reading input from user: " + e.getMessage());
             }
+
         }
     }
 
