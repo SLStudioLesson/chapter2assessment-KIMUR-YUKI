@@ -67,8 +67,10 @@ public class RecipeUI {
     private void displayRecipes() {
         System.out.println("Recipes:");
         System.out.println("-----------------------------");
-        //readRecipes();
-    }
+        }
+        public void start(){
+            //readRecipes();
+        }
 
     /**
      * 設問2: 新規登録機能
