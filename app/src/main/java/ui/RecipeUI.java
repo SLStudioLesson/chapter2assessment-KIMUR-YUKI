@@ -3,6 +3,7 @@ package ui;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import data.RecipeFileHandler;
 
@@ -10,7 +11,7 @@ public class RecipeUI {
     private BufferedReader reader;
     private RecipeFileHandler fileHandler;
 
-    public RecipeUI() {
+    public RecipeUI(){
         reader = new BufferedReader(new InputStreamReader(System.in));
         fileHandler = new RecipeFileHandler();
     }
@@ -40,6 +41,7 @@ public class RecipeUI {
                         break;
                     case "2":
                         // 設問2: 新規登録機能
+                        addNewRecipe();
                         break;
                     case "3":
                         // 設問3: 検索機能
@@ -65,12 +67,26 @@ public class RecipeUI {
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
     private void displayRecipes() {
-        System.out.println("Recipes:");
-        System.out.println("-----------------------------");
+        ArrayList<String>recipes = fileHandler.readRecipes();//レシピのデータを読み込む
+
+        if(recipes.isEmpty()){//もしrecipesの中身が空っぽだったら
+            System.out.println("No recipes available.");//この出力
+        }else{//そうじゃなかったら
+            System.out.println("\nRecipes");
+            System.out.println("------------------------");
+            for(String recipe : recipes){//レシピのリストから一つずつ取り出して、recipeという名前で扱う
+                String[] parts = recipe.split("," , 2);//取り出したレシピの文章をカンマで区切る
+                if(parts.length == 2){//もし取り出しリストが2つに分かれてたら
+                    System.out.println("Recipe Name:" + parts[0]);
+                    System.out.println("Main Ingredients:" + parts[1]);
+                    System.out.println("--------------------------");
+                }
+            }
         }
-        public void start(){
-            //readRecipes();
-        }
+    }
+        
+        
+        
 
     /**
      * 設問2: 新規登録機能
@@ -79,7 +95,16 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
+        //	ユーザーからレシピ名と主な材料を入力させ
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));//文字入力の受付
+        System.out.print("Enter recipe name:");//文字列の出力
+        String recipeName = reader.readLine();//レシピ名の入力
+        System.out.print("Enter main ingredients (comma separated):");//文字列の出力
+        String ingredients = reader.readLine();//材料の入力
 
+        //RecipeFileHandlerを使用して
+        fileHandler.addRecipe(recipeName,ingredients);//addRecipeメソッドの呼び出し
+        //recipes.txtに新しいレシピを追加します。
     }
 
     /**
